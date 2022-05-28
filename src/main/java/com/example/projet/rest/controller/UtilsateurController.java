@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
+@RestController
 public class UtilsateurController {
     @Autowired
     private UtilisateurService utilisateurService ;
@@ -42,7 +42,7 @@ public class UtilsateurController {
         return ResponseEntity.status(HttpStatus.OK).body(utilisateurDtos);
     }
 
-    @PutMapping ("/Utilisateurs/{idUtilisateur}/activate}")
+    @GetMapping ("/Utilisateurs/{idUtilisateur}/activate}")
     public void ActiverUtilisateur(@PathVariable Long idUtilisateur) {
         utilisateurService.ActiverUtilisateur(idUtilisateur);
     }
