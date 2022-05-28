@@ -27,14 +27,22 @@ public class UtilsateurController {
         List <Utilisateur> utilisateurDtos= modelMapper.map(utilisateur,listUser);
         return ResponseEntity.status(HttpStatus.OK).body(utilisateurDtos);
     }
-    @GetMapping("/Utilisateurs/request")
+    @GetMapping("/Utilisateurs/{idUtilisateur}")
+    public Object UtilsateurById(@PathVariable Long idUtilisateur) {
+        Utilisateur utilisateur= utilisateurService.getUtilisateur(idUtilisateur);
+        UtilisateurDto dto= modelMapper.map(utilisateur, UtilisateurDto.class);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
+
+    @GetMapping("/Utilisateurs/requests")
     public Object UtilisateurNotActivelist() {
         List<Utilisateur> utilisateur= utilisateurService.getUtilisateurNotActiveList();
         Type listUser = new TypeToken<List<UtilisateurDto>>() {}.getType() ;
         List <Utilisateur> utilisateurDtos= modelMapper.map(utilisateur,listUser);
         return ResponseEntity.status(HttpStatus.OK).body(utilisateurDtos);
     }
-    @PutMapping ("/Utilisateurs/{idUtilisateur/activate}")
+
+    @PutMapping ("/Utilisateurs/{idUtilisateur}/activate}")
     public void ActiverUtilisateur(@PathVariable Long idUtilisateur) {
         utilisateurService.ActiverUtilisateur(idUtilisateur);
     }

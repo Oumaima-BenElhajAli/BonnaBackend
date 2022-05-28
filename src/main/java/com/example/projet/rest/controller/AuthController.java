@@ -55,11 +55,11 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
         if(userDetails.getActive()==1)
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles));
+            return ResponseEntity.ok(new JwtResponse(jwt,
+                    userDetails.getId(),
+                    userDetails.getUsername(),
+                    userDetails.getEmail(),
+                    roles));
         else
         {
             String message = "Votre compte n'est pas encore active!";
@@ -94,6 +94,7 @@ public class AuthController {
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
+                        user.setActive(1);
                         break;
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
